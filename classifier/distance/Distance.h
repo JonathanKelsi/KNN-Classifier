@@ -1,5 +1,5 @@
-#ifndef METRIC_H
-#define METRIC_H
+#ifndef DISTANCE_H
+#define DISTANCE_H
 
 #include "../Classified.h"
 
@@ -15,6 +15,5 @@ public:
      */
     virtual double distance(const Classified& v1, const Classified& v2 ) const = 0;
 };
-
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef EUCLIDEANMETRIC_H
-#define EUCLIDEANMETRIC_H
+#ifndef EUCLIDEANDISTANCE_H
+#define EUCLIDEANDISTANCE_H
 
 #include "Distance.h"
 #include "../Classified.h"

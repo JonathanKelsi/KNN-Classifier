@@ -7,6 +7,6 @@ set(PROJECT_HEADERS
     "classifier/Classified.h")
 
 set(PROJECT_SOURCES
-        "classifier/Classified.cpp" classifier/distance/Distance.h classifier/distance/EuclideanDistance.h classifier/distance/EuclideanDistance.cpp "classifier/distance/ManhattanDistance .h" classifier/distance/ManhattanDistance.cpp)
+        "classifier/Classified.cpp" classifier/distance/Distance.h classifier/distance/EuclideanDistance.h classifier/distance/EuclideanDistance.cpp "classifier/distance/ManhattanDistance.h" classifier/distance/ManhattanDistance.cpp)
 
 add_executable(AdvancedProgrammingAss1 ${PROJECT_SOURCES} ${PROJECT_HEADERS})

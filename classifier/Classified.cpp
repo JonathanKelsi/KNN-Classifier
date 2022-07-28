@@ -13,7 +13,7 @@ Classified::Classified(const Classified& classified) {
     //Katzav
 }
 
-std::string Classified::handle() {
+const std::string& Classified::handle() const {
     //Katzav
 }
 
@@ -21,48 +21,35 @@ void Classified::handle(std::string) {
     //Katzav
 }
 
-Classified Classified::operator-() const {
-}
-
-const Classified Classified::operator+(const Classified& u) const {
-}
-
-const Classified Classified::operator-(const Classified& u) const {
-    return *this + (-u);
-}
-
-
-Classified &Classified::operator/=(const double t) {
-    *this *= 1 / t;
-    return *this;
-}
-
-double Classified::len() const {
+double Classified::dataLen() const {
     //Katzav
 }
 
-double Classified::operator[](double i) const {
-    return m_data[i];
-}
-
-const Classified Classified::operator*(double t) const {
+const std::vector<double> operator-(const std::vector<double>& v) {
 
 }
 
-const Classified Classified::operator/(double t) const {
-    return *this * (1 / t);
+const std::vector<double> operator+(const std::vector<double>& v, const std::vector<double>& u) {
+
 }
 
-
-const Classified operator*(double t, const Classified& u) {
-    return u * t;
+const std::vector<double> operator-(const std::vector<double>& u, const std::vector<double>& v) {
+    return v + (-u);
 }
 
-double dot(const Classified& u, const Classified& v) {
-    //Katzav
+const std::vector<double> operator*(double t, std::vector<double> v) {
 }
 
-Classified unitVector(Classified v) {
-    return v / v.len();
+const std::vector<double> operator*(const std::vector<double>& v, double t) {
+    return t * v;
 }
+
+const std::vector<double> operator/(std::vector<double> v, double t) {
+    return v * (1 / t);
+}
+
+double len(const std::vector<double>& v) {
+
+}
+
 

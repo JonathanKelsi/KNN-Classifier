@@ -1,5 +1,5 @@
-#ifndef VEC4_H
-#define VEC4_H
+#ifndef Classified_H
+#define Classified_H
 #include <iostream>
 #include <vector>
 #include <string>
@@ -34,76 +34,73 @@ public:
     /**
      * handle getter
      */
-    std::string handle();
+    const std::string& handle() const;
+
+    /**
+     * data getter
+     */
+    const std::vector<double>& data() const;
 
     /**
      * handle setter
      */
      void handle(std::string handle);
-
-    /**
-     * the '-' operator.
-     * @return the vector reversed
-     */
-    Classified operator-() const;
-
-    /**
-     * the '[]' get operator.
-     * @param i an integer
-     * @return the i-th component of the vector
-     */
-    double operator[](double i) const;
-
-    /**
-     * the '/=' operator
-     * @param t a scalar
-     * @return the vector, multiplied by the inverse of the scalar t
-     */
-    Classified& operator/=(const double t);
-
-    /**
-     * the '+' operator.
-     * @param u another vector
-     * @return the sum of the two vectors
-     */
-    const Classified operator+(const Classified& u) const;
-
-    /**
-     * the '-' operator.
-     * @param u another vector
-     * @return the sum of the two vectors
-     */
-    const Classified operator-(const Classified& u) const;
-
-    /**
-     * the '*' operator.
-     * @param u another vector
-     * @return the sum of the two vectors
-     */
-    const Classified operator*(double t) const;
-
-    /**
-     * the '/' operator.
-     * @param t a scalar
-     * @return the vector, multiplied by the scalar t
-     */
-    const Classified operator/(double t) const;
-
-    /**
-     * @return the length of the vector
-     */
-    double len() const;
 };
 
-// Other Classified-related functions
+// Vector utility functions
+
+/**
+ * the '-' operator.
+ * @param v a vector
+ * @return the vector reversed
+ */
+std::vector<double> operator-(std::vector<double>& v);
+
+/**
+ * the '+' operator.
+ * @param v a vector
+ * @param u another vector
+ * @return the sum of the two vectors
+ */
+const std::vector<double> operator+(const std::vector<double>& v, const std::vector<double>& u);
+
+/**
+ * the '-' operator.
+ * @param v a vector
+ * @param u another vector
+ * @return u - v
+ */
+const std::vector<double> operator-(const std::vector<double>& u, const std::vector<double>& v);
 
 /**
  * the '*' operator.
  * @param t a scalar
- * @param u a vector
- * @return the product of the scalar t and u
+ * @param v a vector
+ * @return the vector, multiplied by the scalar t
  */
-const Classified operator*(double t, const Classified& u);
+const std::vector<double> operator*(double t, std::vector<double> v);
+
+/**
+ * the '*' operator.
+ * @param v a vector
+ * @param t a scalar
+ * @return the product of the scalar t and v
+ */
+const std::vector<double> operator*(const std::vector<double>& v, double t);
+
+/**
+ * the '/' operator.
+ * @param t a scalar
+ * @param v a vector
+ * @return the vector, multiplied by the inverse the scalar t
+ */
+const std::vector<double> operator/(std::vector<double> v, double t);
+
+/**
+ * @return the length of the vector
+ */
+double len(const std::vector<double>& v);
+
 
 // Type aliases for Classified
 using Iris = Classified;

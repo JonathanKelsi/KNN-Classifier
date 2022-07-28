@@ -1,6 +1,12 @@
-#include "ManhattanDistance .h"
+#include "ManhattanDistance.h"
 
 double ManhattanDistance::distance(const Classified& v1, const Classified& v2) const {
-    Classified diff = v1 - v2;
-    return abs(diff.x()) + abs(diff.y()) + abs(diff.z()) + abs(diff.w());
+    std::vector<double> diff = v1.data() - v2.data();
+    double res = 0;
+
+    for(int i = 0; i < diff.size(); i++) {
+        res += abs(diff[i]);
+    }
+
+    return res;
 }
