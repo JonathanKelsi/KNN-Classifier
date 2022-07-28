@@ -55,20 +55,6 @@ public:
     double operator[](double i) const;
 
     /**
-     * the '+=' operator
-     * @param v another vector
-     * @return the sum of the LHS and RHS vectors
-     */
-    Classified& operator+=(const Classified& v);
-
-    /**
-     * the '*=' operator
-     * @param t a scalar
-     * @return the vector, multiplied by the scalar t
-     */
-    Classified& operator*=(const double t);
-
-    /**
      * the '/=' operator
      * @param t a scalar
      * @return the vector, multiplied by the inverse of the scalar t

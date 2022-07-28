@@ -31,12 +31,6 @@ const Classified Classified::operator-(const Classified& u) const {
     return *this + (-u);
 }
 
-Classified &Classified::operator+=(const Classified& v) {
-}
-
-Classified &Classified::operator*=(const double t) {
-    //Katzav
-}
 
 Classified &Classified::operator/=(const double t) {
     *this *= 1 / t;
