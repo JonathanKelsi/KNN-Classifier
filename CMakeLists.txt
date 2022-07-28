@@ -4,9 +4,18 @@ project(AdvancedProgrammingAss1)
 set(CMAKE_CXX_STANDARD 11)
 
 set(PROJECT_HEADERS
-    "classifier/Classified.h")
+    "classifier/Classified.h"
+    "classifier/distance/Distance.h"
+    "classifier/distance/EuclideanDistance.h"
+    "classifier/distance/ManhattanDistance.h"
+    )
 
 set(PROJECT_SOURCES
-        "classifier/Classified.cpp" classifier/distance/Distance.h classifier/distance/EuclideanDistance.h classifier/distance/EuclideanDistance.cpp "classifier/distance/ManhattanDistance.h" classifier/distance/ManhattanDistance.cpp)
+        "classifier/Classified.cpp"
+        "classifier/distance/EuclideanDistance.cpp"
+        "classifier/distance/ManhattanDistance.cpp"
+        "main.cpp")
 
 add_executable(AdvancedProgrammingAss1 ${PROJECT_SOURCES} ${PROJECT_HEADERS})
+
+
