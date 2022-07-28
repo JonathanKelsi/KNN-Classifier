@@ -13,7 +13,7 @@ public:
      * @param v2 another vector in R^4
      * @return the distance between the two
      */
-    virtual double distance(const Classified& v1, const Classified& v2 ) const = 0;
+    virtual double distance(const std::vector<double>& v1, const std::vector<double>& v2 ) const = 0;
 };
 
 #endif
