@@ -21,10 +21,6 @@ void Classified::handle(std::string) {
     //Katzav
 }
 
-double Classified::dataLen() const {
-    //Katzav
-}
-
 const std::vector<double> operator-(const std::vector<double>& v) {
 
 }
@@ -49,7 +45,7 @@ const std::vector<double> operator/(std::vector<double> v, double t) {
 }
 
 double len(const std::vector<double>& v) {
-
+    //Katzav
 }
 
 
