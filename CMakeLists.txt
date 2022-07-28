@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(AdvancedProgrammingAss1)
+project(KNN-Classifier)
 
 set(CMAKE_CXX_STANDARD 11)
 
