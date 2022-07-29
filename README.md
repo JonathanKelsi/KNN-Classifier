@@ -4,19 +4,19 @@ This repository implements the  [k-nearest neighbors algorithm](https://en.wikip
 using different metrics to classify types of Irises, based on given data. 
 
 ## Description
-The classifier receives paths to files *Classified.csv*, *Unclassified.csv* and 
-the path to the output directory.
+The classifier receives an integer *k* as an argument, and assumes the existence of
+files *Classified.csv*, *Unclassified.csv* where:
 
-* *Classified.csv* stores the dataset of three different
+* *Classified.csv* - stores the dataset of three different
 kind of Irises (Setosa, Virginia, Versicolor).
-* *Unclassified.csv* stores the dataset of unidentified Irises.
+* *Unclassified.csv* - stores the dataset of unidentified Irises.
 
 each Iris in the datasets has four properties: width and length of it's sepals,
 and width and length of it's petals.
 </br>
 
-Using the KNN algorithm, the classifier determines the type of the unclassified
-Irises, and returns it in three different files: 
+Using the KNN algorithm (with the given *k*), the classifier determines
+the type of the unclassified Irises, and returns it in three different files: 
 
 * *euclidean_output.csv* 
 * *chebyshev_output.csv* 
@@ -46,7 +46,7 @@ To run the program, the standard CMake workflow can be used:
 ```bash
 mkdir -p build && cd build
 cmake ..
-make -j && make KNN-Classifier <arg1> <arg2> <arg3>
+make -j && make KNN-Classifier <k>
 ```
 
 ## Authors
