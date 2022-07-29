@@ -23,7 +23,7 @@ public:
      * @param handle the handle
      * @param data the data
      */
-    Classified(std::string handle, std::vector<double> data);
+    Classified(std::string handle, std::vector<double>& data);
 
     /**
     * copy constructor.

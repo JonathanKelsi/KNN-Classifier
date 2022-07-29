@@ -1,12 +1,14 @@
 #include "Classified.h"
 #include <cmath>
+#include <utility>
 
 Classified::Classified() {
-    //TODO: Katzav
+    m_handle = "";
 }
 
-Classified::Classified(std::string handle, std::vector<double> data) {
-    //TODO: Katzav
+Classified::Classified(std::string handle, std::vector<double>& data) {
+    m_handle = std::move(handle);
+    m_data = data;
 }
 
 Classified::Classified(const Classified& classified) {
