@@ -12,13 +12,13 @@ set(PROJECT_HEADERS
     )
 
 set(PROJECT_SOURCES
-        "classifier/Classified.cpp"
-        "classifier/distance/EuclideanDistance.cpp"
-        "classifier/distance/ManhattanDistance.cpp"
-        "classifier/Algorithms.cpp"
-        "main.cpp"
-        )
+    "classifier/Classified.cpp"
+    "classifier/distance/EuclideanDistance.cpp"
+    "classifier/distance/ManhattanDistance.cpp"
+    "classifier/Algorithms.cpp"
+    "main.cpp"
+    )
 
-add_executable(AdvancedProgrammingAss1 ${PROJECT_SOURCES} ${PROJECT_HEADERS})
+add_executable(KNN-Classifier ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 
 
