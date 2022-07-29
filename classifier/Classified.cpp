@@ -12,20 +12,21 @@ Classified::Classified(std::string handle, std::vector<double>& data) {
 }
 
 Classified::Classified(const Classified& classified) {
-    //TODO: Katzav
+    m_handle = classified.m_handle;
+    m_data = classified.data();
 }
 
 const std::string& Classified::handle() const {
-    //TODO: Katzav
+    return m_handle;
 }
 
 const std::vector<double>& Classified::data() const {
-    //TODO: Katzav
+    return m_data;
 }
 
 
-void Classified::handle(std::string) {
-    //TODO: Katzav
+void Classified::handle(std::string handle) {
+    m_handle = std::move(handle);
 }
 
 const std::vector<double> operator-(const std::vector<double>& v) {
