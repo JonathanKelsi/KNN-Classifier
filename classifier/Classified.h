@@ -5,7 +5,7 @@
 #include <string>
 
 /**
- * This class represents a vector in R^4.
+ * This class represents an object that is classified by the KNN Classifier.
  */
 class Classified {
 private:
@@ -92,7 +92,7 @@ const std::vector<double> operator*(const std::vector<double>& v, double t);
  * the '/' operator.
  * @param t a scalar
  * @param v a vector
- * @return the vector, multiplied by the inverse the scalar t
+ * @return the vector, multiplied by the inverse of the scalar t
  */
 const std::vector<double> operator/(const std::vector<double>& v, double t);
 
