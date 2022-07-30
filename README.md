@@ -7,7 +7,7 @@ using different metrics to classify types new data, based on given data.
 The classifier receives an integer *k* as an argument, and assumes the existence of
 files *Classified.csv*, *Unclassified.csv* where:
 
-* *Classified.csv* - stores the dataset known, classified objects.
+* *Classified.csv* - stores the dataset of known, classified objects.
 * *Unclassified.csv* - stores the dataset of unidentified objects.
 
 Using the KNN algorithm (with the given *k*), the classifier determines
