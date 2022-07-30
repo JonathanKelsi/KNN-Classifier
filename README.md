@@ -27,12 +27,6 @@ This project uses CMake to generate and build. In a Debian-based system you can 
 ```bash
 sudo apt install cmake
 ```
-bear in mind, CMake uses g++ in it's implementation, and so you need
-to have the compiler installed. In a Debian-based system you can install 
-it via:
-```bash
-sudo apt install g++
-```
 
 ### Installation
 
