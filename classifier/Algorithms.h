@@ -33,12 +33,12 @@ int partition(std::vector<double>& v, int left, int right, int pivot);
  * @param k an integer s.t left <= k <= right
  * @return the k-th smallest element of v[left...right]
  */
-double quickSelect(std::vector<double>& v, int left, int right, int k);
+double quickSelect(std::vector<double> v, int left, int right, int k);
 
 /**
  * @param k an integer s.t left <= k <= right
  * @return the k-th smallest element of v
  */
-double quickSelect(std::vector<double>& v, int k);
+double quickSelect(const std::vector<double>& v, int k);
 
 #endif

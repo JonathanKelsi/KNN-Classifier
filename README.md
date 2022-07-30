@@ -1,22 +1,17 @@
 # KNN Classifier
 
 This repository implements the  [k-nearest neighbors algorithm](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm), 
-using different metrics to classify types of Irises, based on given data. 
+using different metrics to classify types new data, based on given data. 
 
 ## Description
 The classifier receives an integer *k* as an argument, and assumes the existence of
 files *Classified.csv*, *Unclassified.csv* where:
 
-* *Classified.csv* - stores the dataset of three different
-kind of Irises (Setosa, Virginia, Versicolor).
-* *Unclassified.csv* - stores the dataset of unidentified Irises.
-
-each Iris in the datasets has four properties: width and length of it's sepals,
-and width and length of it's petals.
-</br>
+* *Classified.csv* - stores the dataset known, classified objects.
+* *Unclassified.csv* - stores the dataset of unidentified objects.
 
 Using the KNN algorithm (with the given *k*), the classifier determines
-the type of the unclassified Irises, and returns it in three different files: 
+the type of the unclassified objects, and returns it in three different files: 
 
 * *euclidean_output.csv* 
 * *chebyshev_output.csv* 
@@ -31,6 +26,12 @@ Each file correspondence to a different metric that the KNN algorithm used.
 This project uses CMake to generate and build. In a Debian-based system you can install it via:
 ```bash
 sudo apt install cmake
+```
+bear in mind, CMake uses g++ in it's implementation, and so you need
+to have the compiler installed. In a Debian-based system you can install 
+it via:
+```bash
+sudo apt install g++
 ```
 
 ### Installation

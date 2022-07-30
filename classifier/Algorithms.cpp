@@ -40,7 +40,7 @@ int partition(std::vector<double>& v, int left, int right, int pivot) {
     return index;
 }
 
-double quickSelect(std::vector<double>& v, int left, int right, int k) {
+double quickSelect(std::vector<double> v, int left, int right, int k) {
     // If the vector contains only one element
     if (left == right) {
         return v[left];
@@ -61,6 +61,6 @@ double quickSelect(std::vector<double>& v, int left, int right, int k) {
     return quickSelect(v, pivot + 1, right, k);
 }
 
-double quickSelect(std::vector<double>& v, int k) {
+double quickSelect(const std::vector<double>& v, int k) {
     return quickSelect(v, 0, v.size() - 1, k);
 }
