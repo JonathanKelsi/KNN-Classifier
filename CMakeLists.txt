@@ -19,7 +19,7 @@ set(PROJECT_SOURCES
     "classifier/Algorithms.cpp"
     "classifier/distance/ChebyshevDistance.cpp"
     "main.cpp"
-        classifier/Classifier.h classifier/distance/Classifier.cpp)
+        classifier/Classifier.h classifier/distance/Classifier.cpp classifier/Classifier.cpp)
 
 add_executable(KNN-Classifier ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 

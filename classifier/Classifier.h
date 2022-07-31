@@ -5,6 +5,8 @@
 #include "distance/Distance.h"
 #include <string>
 #include <memory>
+#include <fstream>
+#include <sstream>
 
 class Classifier {
 private:
