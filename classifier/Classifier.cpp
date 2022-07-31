@@ -2,7 +2,15 @@
 #include <memory>
 
 void Classifier::classify(Classified& unclassified, Distance distance) {
-
+    std::vector<double> distances;
+    for (int i = 0; i < m_classifiedData.size(); i++) {
+        distances.push_back(distance.distance(unclassified.data(), m_classifiedData[i]->data()));
+    }
+    std::vector<Classified> selected;
+    for (int i = 1; i <= m_k; i++) {
+        selected.push_back(
+    }
+    //continue next
 }
 Classifier::Classifier(int k) {
     m_isInit = false;
@@ -23,8 +31,8 @@ void Classifier::init(std::string dataPath) {
             }
         }
         handle = val;
-        auto ptr = std::make_unique<Classified>(handle, vec1);
-        m_classifiedData.push_back(cls);
+        std::unique_ptr<Classified> uniquePtr (reinterpret_cast<Classified *>(new Classified(handle, vec1)));
+        m_classifiedData.push_back(uniquePtr);
     }
 
 }

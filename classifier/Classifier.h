@@ -1,12 +1,14 @@
 #ifndef CLASSIFIER_H
 #define CLASSIFIER_H
 
+#include "Algorithms.h"
 #include "Classified.h"
 #include "distance/Distance.h"
 #include <string>
 #include <memory>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 class Classifier {
 private:
