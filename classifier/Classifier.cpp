@@ -1,16 +1,26 @@
 #include "Classifier.h"
 #include <memory>
 #include <map>
-#include <algorithm>
 
-void Classifier::classify(Classified& unclassified, Distance distance) {
-    std::vector<double> distances;
-    for (int i = 0; i < m_classifiedData.size(); i++) {
-        distances.push_back(distance.distance(unclassified.data(), m_classifiedData[i]->data()));
+void Classifier::classify(Classified& unclassified, const Distance& metric) {
+    if (!m_isInit) {
+        return;
     }
+
+    // Measure the distances from the unclassified vector to the gathered data
+    std::vector<double> distances;
+    auto dataSize = m_classifiedData.size();
+
+    for (int i = 0; i < dataSize; i++) {
+        distances.push_back(metric.distance(unclassified.data(), m_classifiedData[i]->data()));
+    }
+
+    // Find the K nearest neighbours
     std::map<std::string, int> m;
-    for (int i = 1; i <= m_k; i++) {
-        //to do: get the number vector sorted.
+
+    for (int i = 0; i < m_k; i++) {
+        // TODO: get the number vector sorted
+
         std::string strType;
         if (m.find(strType) == m.end()) {
             m.insert(std::pair<std::string, int>(strType, 1));
@@ -18,8 +28,11 @@ void Classifier::classify(Classified& unclassified, Distance distance) {
             m[strType] += 1;
         }
     }
+
+    // Can't use algorithms
     std::string st = std::max_element(m.begin(), m.end())->first;
-    //continue next
+
+    // Continue next
     unclassified.handle(st);
 }
 
@@ -29,6 +42,9 @@ Classifier::Classifier(int k) {
 }
 
 void Classifier::init(std::string dataPath) {
+    // Update the object has been initialized
+    m_isInit = true;
+
     std::string str;
     std::ifstream inStream(dataPath);
     while (std::getline(inStream, str)) {
@@ -49,6 +65,5 @@ void Classifier::init(std::string dataPath) {
 }
 
 void Classifier::write(std::string dataPath, std::string outputPath) {
-
 }
 
