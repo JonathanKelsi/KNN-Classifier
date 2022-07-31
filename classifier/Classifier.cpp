@@ -2,7 +2,7 @@
 #include <memory>
 #include <map>
 
-void Classifier::classify(Classified& unclassified, const Distance& metric) {
+void Classifier::classify(Classified& unclassified, const Distance& metric) const {
     if (!m_isInit) {
         return;
     }
@@ -33,7 +33,7 @@ void Classifier::classify(Classified& unclassified, const Distance& metric) {
 //    std::string st = std::max_element(m.begin(), m.end())->first;
 
     // Continue next
-    unclassified.handle(st);
+//    unclassified.handle(st);
 }
 
 Classifier::Classifier(int k) {

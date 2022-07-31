@@ -81,27 +81,38 @@ int random(int a, int b);
 void swap(double& x, double& y);
 
 /**
- * group v[left...right] into two parts: those smaller than v[pivot] and those bigger than v[pivot].
+ * swap two integer variables.
+ * @param x a reference to a variable
+ * @param y a reference to another variable
+ */
+void swap(int& x, int& y);
+
+/**
+ * group v[left...right] into two parts: those smaller than v[pivot] and those bigger than v[pivot], and update
+ * the indices vector that points the original indices to the new indices.
  * @param v a vector of real numbers
+ * @param indices the vector of original indices
  * @param left a lower bound on the indices
  * @param right an upper bound on the indices
  * @param pivot a pivot
  * @return the new index of v[pivot]
  */
-int partition(std::vector<double>& v, int left, int right, int pivot);
+static int partition(std::vector<double>& v, std::vector<int>& indices, int left, int right, int pivot);
 
 /**
+ * @param v a vector of real numbers
+ * @param indices the vector of original indices
  * @param left a lower bound on the indices
  * @param right an upper bound on the indices
  * @param k an integer s.t left <= k <= right
  * @return the k-th smallest element of v[left...right]
  */
-double quickSelect(std::vector<double> v, int left, int right, int k);
+static double quickSelect(std::vector<double>& v, std::vector<int>& indices, int left, int right, int k);
 
 /**
  * @param k an integer s.t left <= k <= right
- * @return the k-th smallest element of v
+ * @return the index of the k-th smallest element of v
  */
-double quickSelect(const std::vector<double>& v, int k);
+int quickSelect(std::vector<double> v, int k);
 
 #endif

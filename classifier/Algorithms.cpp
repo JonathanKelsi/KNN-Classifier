@@ -88,27 +88,36 @@ void swap(double& x, double& y) {
     y = temp;
 }
 
-int partition(std::vector<double>& v, int left, int right, int pivot) {
+void swap(int& x, int& y) {
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+static int partition(std::vector<double>& v, std::vector<int>& indices, int left, int right, int pivot) {
     double pivotVal = v[pivot];
 
     // Move the pivot to the end
     swap(v[pivot], v[right]);
+    swap(indices[pivot], indices[right]);
 
     int index = left;
     for (int i = left; i < right; ++i) {
         if (v[i] < pivotVal) {
             swap(v[index], v[i]);
+            swap(indices[index], indices[i]);
             index++;
         }
     }
 
-    // Move pivot to it's final place
+    // Move pivot to its final place
     swap(v[right], v[index]);
+    swap(indices[right], indices[index]);
 
     return index;
 }
 
-double quickSelect(std::vector<double> v, int left, int right, int k) {
+static double quickSelect(std::vector<double>& v, std::vector<int>& indices, int left, int right, int k) {
     // If the vector contains only one element
     if (left == right) {
         return v[left];
@@ -116,19 +125,31 @@ double quickSelect(std::vector<double> v, int left, int right, int k) {
 
     // Select an index between left and right
     int pivot = random(left, right);
-    pivot = partition(v, left, right, pivot);
+    pivot = partition(v, indices, left, right, pivot);
 
     // If we've found the desired element
     if (k == pivot) {
         return v[k];
     } else if (k < pivot) {
-        return quickSelect(v, left, pivot -1, k);
+        return quickSelect(v, indices, left, pivot -1, k);
     }
 
     // Else
-    return quickSelect(v, pivot + 1, right, k);
+    return quickSelect(v, indices, pivot + 1, right, k);
 }
 
-double quickSelect(const std::vector<double>& v, int k) {
-    return quickSelect(v, 0, v.size() - 1, k);
+int quickSelect(std::vector<double> v, int k) {
+    auto size = v.size();
+    std::vector<int> indices;
+
+    // Create an indices vector
+    for (int i = 0; i < size; ++i) {
+        indices.push_back(i);
+    }
+
+    // Use the quick select algorithm to find the k-th smallest element, and partition the vector accordingly.
+    // Also, keep track of original elements' indices, so we'll be able to return the original index.
+    quickSelect(v, indices, 0, size - 1, k);
+
+    return  indices[k];
 }

@@ -22,7 +22,7 @@ private:
      * @param unclassified an unclassified object.
      * @param distance a distance metric
      */
-    void classify(Classified& unclassified, const Distance& metric);
+    void classify(Classified& unclassified, const Distance& metric) const;
 
 public:
     /**
