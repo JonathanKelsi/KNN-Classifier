@@ -30,7 +30,7 @@ void Classifier::classify(Classified& unclassified, const Distance& metric) {
     }
 
     // Can't use algorithms
-    std::string st = std::max_element(m.begin(), m.end())->first;
+//    std::string st = std::max_element(m.begin(), m.end())->first;
 
     // Continue next
     unclassified.handle(st);
@@ -42,26 +42,34 @@ Classifier::Classifier(int k) {
 }
 
 void Classifier::init(std::string dataPath) {
-    // Update the object has been initialized
-    m_isInit = true;
+    // Read from given csv files and create classified objects
+    std::string line;
+    std::ifstream inFile(dataPath);
 
-    std::string str;
-    std::ifstream inStream(dataPath);
-    while (std::getline(inStream, str)) {
-        std::istringstream str1(str);
-        std::string val;
-        std::vector<double> vec1;
+    // Iterate through the csv file
+    while (std::getline(inFile, line)) {
+        // Read the line
+        std::istringstream stringStream(line);
+        std::string column;
+
         std::string handle;
-        while (std::getline(str1, val, ',')) {
-            if ((val[0] < (char)'0' || val[0] > (char)'0') && val[0] != '.') {
-                vec1.push_back(std::stod(val));
+        std::vector<double> vData;
+
+        while(std::getline(stringStream, column, ',')) {
+            //Check if the column is a valid floating point number
+            if (isFloat(column)) {
+                vData.push_back((double)std::atof(column.c_str()));
+            } else {
+                handle = column;
             }
         }
-        handle = val;
-        std::unique_ptr<Classified> uniquePtr (reinterpret_cast<Classified *>(new Classified(handle, vec1)));
-        m_classifiedData.push_back(uniquePtr);
+
+        std::unique_ptr<Classified> uniquePtr (reinterpret_cast<Classified *>(new Classified(handle, vData)));
+        m_classifiedData.push_back(std::move(uniquePtr));
     }
 
+    // Update the object has been initialized
+    m_isInit = true;
 }
 
 void Classifier::write(std::string dataPath, std::string outputPath) {

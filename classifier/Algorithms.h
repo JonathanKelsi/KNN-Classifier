@@ -2,6 +2,7 @@
 #define ALGORITHMS_H
 
 #include <vector>
+#include <string>
 
 // Vector utility functions
 
@@ -57,7 +58,13 @@ const std::vector<double> operator/(const std::vector<double>& v, double t);
  */
 double len(const std::vector<double>& v);
 
-// Algorithms
+// Algorithms and other utility functions
+
+/**
+ * @param str a string
+ * @return whether the input string represents a floating point number
+ */
+bool isFloat(const std::string& str);
 
 /**
  * @param a a lower bound

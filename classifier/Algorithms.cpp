@@ -63,6 +63,12 @@ double len(const std::vector<double>& v) {
     return sqrt(lenSqrd);
 }
 
+bool isFloat(const std::string& str) {
+    char* ptr;
+    strtof(str.c_str(), &ptr);
+    return (*ptr) == '\0';
+}
+
 int random(int a, int b) {
     // Obtain a random number from hardware
     std::random_device rand;
