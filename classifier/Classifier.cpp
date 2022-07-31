@@ -22,6 +22,7 @@ void Classifier::classify(Classified& unclassified, Distance distance) {
     //continue next
     unclassified.handle(st);
 }
+
 Classifier::Classifier(int k) {
     m_isInit = false;
     m_k = k;

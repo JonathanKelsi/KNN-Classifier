@@ -1,7 +1,7 @@
 #ifndef DISTANCE_H
 #define DISTANCE_H
 
-#include "../Classified.h"
+#include <vector>
 
 /**
  * This class represents an abstract metric.

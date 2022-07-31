@@ -2,7 +2,6 @@
 #define CHEBYSHEVDISTANCE_H
 
 #include "Distance.h"
-#include "../Classified.h"
 
 class ChebyshevDistance : public Distance {
 public:

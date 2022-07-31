@@ -2,7 +2,6 @@
 #define EUCLIDEANDISTANCE_H
 
 #include "Distance.h"
-#include "../Classified.h"
 
 class EuclideanDistance : public Distance {
 public:

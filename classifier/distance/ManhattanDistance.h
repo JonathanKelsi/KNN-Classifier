@@ -2,7 +2,6 @@
 #define MANHATTANDISTANCE_H
 
 #include "Distance.h"
-#include "../Classified.h"
 
 class ManhattanDistance : public Distance {
 public:

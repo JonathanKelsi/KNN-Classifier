@@ -1,8 +1,9 @@
 #include "classifier/Classifier.h"
 #include <iostream>
 
-int main(int argc, char** argv) {
+#include<memory>
 
+int main(int argc, char** argv) {
     // Create a classifier
     Classifier classifier(std::stoi(argv[0]));
 
