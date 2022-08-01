@@ -11,7 +11,6 @@ int main(int argc, char** argv) {
 //    // Initialize the classifier with the given data, ad classify the unclassified data
 //    classifier.init(""); //TODO: add correct path
 //    classifier.write("", ""); //TODO: add correct paths
-
     return 0;
 }
 
