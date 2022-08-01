@@ -11,29 +11,33 @@ void Classifier::classify(Classified& unclassified, const Distance& metric) cons
     std::vector<double> distances;
     auto dataSize = m_classifiedData.size();
 
-    for (int i = 0; i < dataSize; i++) {
+    for (int i = 0; i < dataSize; ++i) {
         distances.push_back(metric.distance(unclassified.data(), m_classifiedData[i]->data()));
     }
 
     // Find the K nearest neighbours
-    std::map<std::string, int> m;
+    std::map<std::string, int> map;
+    std::vector<int> indices = kSmallestElements(distances, m_k);
 
-    for (int i = 0; i < m_k; i++) {
-        // TODO: get the number vector sorted
+    for (int i = 0; i < m_k; ++i) {
+        std::string handle = m_classifiedData[indices[i]]->handle();
 
-        std::string strType;
-        if (m.find(strType) == m.end()) {
-            m.insert(std::pair<std::string, int>(strType, 1));
+        if (map.find(handle) == map.end()) {
+           map[handle] = 1;
         } else {
-            m[strType] += 1;
+            map[handle]++;
         }
     }
-
-    // Can't use algorithms
-//    std::string st = std::max_element(m.begin(), m.end())->first;
-
-    // Continue next
-//    unclassified.handle(st);
+    std::map<std::string, int>::iterator handleIterator = map.begin();
+    std::string maxHandle = "";
+    int maxTimes = 0;
+    while (handleIterator != map.end()) {
+        if (handleIterator->second > maxTimes) {
+            maxHandle = handleIterator->first;
+            maxTimes = handleIterator->second;
+        }
+    }
+    unclassified.handle(maxHandle);
 }
 
 Classifier::Classifier(int k) {
