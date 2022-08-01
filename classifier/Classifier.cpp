@@ -65,30 +65,14 @@ void Classifier::classify(Classified& unclassified, const Distance& metric) cons
         }
     }
 
-
-    //TODO: Create method in Algorithms.h
-    auto handleIterator = map.begin();
-    std::string mostCommonHandle;
-    int maxTimes = 0;
-
-    while (handleIterator != map.end()) {
-        if (handleIterator->second > maxTimes) {
-            mostCommonHandle = handleIterator->first;
-            maxTimes = handleIterator->second;
-        }
-    }
-
     // Classify the object
-    unclassified.handle(mostCommonHandle);
+    unclassified.handle(maxKey(map));
 }
 
 void Classifier::write(std::string dataPath, std::string outputPath) {
     if (!m_isInit) {
         throw std::runtime_error("Classifier uninitialized");
     }
-
-
-
 
     // Create unclassified objects from the unclassified data
     std::string line;
@@ -105,7 +89,6 @@ void Classifier::write(std::string dataPath, std::string outputPath) {
                 vData.push_back((double)std::atof(col.c_str()));
             }
         }
-
         std::unique_ptr<Classified> uniquePtr (reinterpret_cast<Classified *>(new Classified("", vData)));
         unclassifiedData.push_back(std::move(uniquePtr));
     }

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 
 // Vector utility functions
 
@@ -106,5 +107,12 @@ static double quickSelect(std::vector<double>& v, std::vector<int>& indices, int
  * @return a vector of the k-th smallest elements of the array
  */
 std::vector<int> kSmallestElements(const std::vector<double>& v, int k);
+
+/**
+ * find the key of the maximum value of a map in type of <std::string,int>
+ * @param map the map which contains the keys and their values
+ * @return the key with the maximum value
+ */
+std::string maxKey(const std::map<std::string, int>& map);
 
 #endif

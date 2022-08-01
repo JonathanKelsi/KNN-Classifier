@@ -160,3 +160,16 @@ std::vector<int> kSmallestElements(const std::vector<double>& v, int k) {
     return  indices;
 }
 
+std::string maxKey(const std::map<std::string, int>& map) {
+    auto handleIterator = map.begin();
+    std::string mostCommonString;
+    int maxTimes = 0;
+
+    while (handleIterator != map.end()) {
+        if (handleIterator->second > maxTimes) {
+            mostCommonString = handleIterator->first;
+            maxTimes = handleIterator->second;
+        }
+    }
+    return mostCommonString;
+}
