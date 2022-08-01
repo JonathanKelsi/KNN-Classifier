@@ -1,16 +1,15 @@
 #include "classifier/Classifier.h"
-#include <iostream>
 #include <vector>
-#include "classifier/Algorithms.h"
-#include <map>
 
 int main(int argc, char** argv) {
     // Create a classifier
-    Classifier classifier(3);
+    auto classifier = new Classifier(std::stoi(argv[0]));
 
     // Initialize the classifier with the given data, ad classify the unclassified data
-    classifier.init("../input/classified.csv"); //TODO: add correct path
-    classifier.write("../input/Unclassified.csv", "../output"); //TODO: add correct paths
+    classifier->init("../input/classified.csv");
+    classifier->write("../input/Unclassified.csv", "../output");
+
+    delete classifier;
     return 0;
 }
 

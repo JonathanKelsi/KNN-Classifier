@@ -1,20 +1,23 @@
 #include "Classifier.h"
-#include <memory>
+#include "distance/EuclideanDistance.h"
+#include "distance/ChebyshevDistance.h"
+#include "distance/ManhattanDistance.h"
+#include "Algorithms.h"
 #include <map>
+#include <fstream>
+#include <sstream>
 
-Classifier::Classifier(int k) {
-    m_isInit = false;
-    m_k = k;
-}
+Classifier::Classifier(int k) : m_isInit(false), m_k(k) {}
 
-void Classifier::init(std::string dataPath) {
+
+void Classifier::init(const std::string& dataPath) {
     // Read from given csv files and create classified objects
     std::string line;
     std::ifstream inFile(dataPath);
 
-    // Iterate through the csv file
+    // Iterate through the csv file lines
     while (std::getline(inFile, line)) {
-        // Read the line
+        // Read the columns and gather the classified object's data
         std::istringstream stringStream(line);
         std::string column;
 
@@ -22,19 +25,19 @@ void Classifier::init(std::string dataPath) {
         std::vector<double> vData;
 
         while(std::getline(stringStream, column, ',')) {
-            //Check if the column is a valid floating point number
             if (isFloat(column)) {
-                vData.push_back((double)std::atof(column.c_str()));
+                vData.push_back(std::stod(column));
             } else {
                 handle = column;
             }
         }
 
-        std::unique_ptr<Classified> uniquePtr (reinterpret_cast<Classified *>(new Classified(handle, vData)));
+        std::unique_ptr<Classified> uniquePtr(new Classified(handle, vData));
         m_classifiedData.push_back(std::move(uniquePtr));
     }
 
-    // Update the object has been initialized
+    // Close the stream, and update the initialization has completed
+    inFile.close();
     m_isInit = true;
 }
 
@@ -69,7 +72,7 @@ void Classifier::classify(Classified& unclassified, const Distance& metric) cons
     unclassified.handle(maxKey(map));
 }
 
-void Classifier::write(std::string dataPath, std::string outputPath) {
+void Classifier::write(const std::string& dataPath, const std::string& outputPath) {
     if (!m_isInit) {
         throw std::runtime_error("Classifier uninitialized");
     }
@@ -86,10 +89,11 @@ void Classifier::write(std::string dataPath, std::string outputPath) {
 
         while (std::getline(inputStringStream, col, ',')) {
             if (isFloat(col)) {
-                vData.push_back((double)std::atof(col.c_str()));
+                vData.push_back(std::stod(col));
             }
         }
-        std::unique_ptr<Classified> uniquePtr (reinterpret_cast<Classified *>(new Classified("", vData)));
+
+        std::unique_ptr<Classified> uniquePtr(new Classified("", vData));
         unclassifiedData.push_back(std::move(uniquePtr));
     }
 
@@ -97,19 +101,24 @@ void Classifier::write(std::string dataPath, std::string outputPath) {
 
     // Create a vector of the metrics used
     std::vector<Distance*> metrics = {new EuclideanDistance(), new ChebyshevDistance(), new ManhattanDistance()};
+    auto numOfDistances = metrics.size();
 
     //Create vector with the output path names, corresponding to the metrics
     std::vector<std::string> files = {"euclidean_output.csv", "chebyshev_output.csv", "manhattan_output.csv"};
-    auto numOfDistances = metrics.size();
-    // Now, for each distance, we'll print the classifications by the relevant distance.
+
+    // For each distance, print the classifications by the relevant metric
+    auto classificationSize = unclassifiedData.size();
+
     for (int i = 0; i < numOfDistances; ++i) {
-        std::fstream ostream;
-        ostream.open((outputPath + "/" + files[i]));
-        auto numOfClassifieds = unclassifiedData.size();
-        for (int j = 0; j < numOfDistances; ++j) {
+        std::ofstream ostream(outputPath + "/" + files[i]);
+
+        for (int j = 0; j < classificationSize; ++j) {
             classify(*unclassifiedData[j], *metrics[i]);
             ostream << unclassifiedData[j]->handle() << std::endl;
         }
+
         ostream.close();
     }
+
+    metrics.clear();
 }

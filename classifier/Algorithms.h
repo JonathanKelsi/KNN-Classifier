@@ -26,7 +26,7 @@ const std::vector<double> operator+(const std::vector<double>& v, const std::vec
  * the '-' operator.
  * @param v a vector
  * @param u another vector
- * @return the result of the vector subtraction (u - v)
+ * @return the vector's subtraction (u - v)
  */
 const std::vector<double> operator-(const std::vector<double>& u, const std::vector<double>& v);
 
@@ -34,7 +34,7 @@ const std::vector<double> operator-(const std::vector<double>& u, const std::vec
  * the '*' operator.
  * @param t a scalar
  * @param v a vector
- * @return the product of the scalar t and v (t*v)
+ * @return the product of the scalar t and v (t * v)
  */
 const std::vector<double> operator*(double t, const std::vector<double>& v);
 
@@ -60,6 +60,13 @@ const std::vector<double> operator/(const std::vector<double>& v, double t);
 double len(const std::vector<double>& v);
 
 // Other utility functions
+
+/**
+ * find the key of the maximum value of a map
+ * @param map a map between strings and integers
+ * @return the key with the maximum value
+ */
+std::string maxKey(const std::map<std::string, int>& map);
 
 /**
  * @param str a string
@@ -91,7 +98,7 @@ void swap(std::pair<double,int>& p1, std::pair<double,int>& p2);
  * @param pivot a pivot
  * @return the new index of v[pivot]
  */
-static int partition(std::vector<double>& v, std::vector<int>& indices, int left, int right, int pivot);
+static int partition(std::vector<std::pair<double,int>>& v, int left, int right, int pivot);
 
 /**
  * @param v a vector of real numbers, paired with their original indices
@@ -100,19 +107,12 @@ static int partition(std::vector<double>& v, std::vector<int>& indices, int left
  * @param k an integer s.t left <= k <= right
  * @return the k-th smallest element of v[left...right]
  */
-static double quickSelect(std::vector<double>& v, std::vector<int>& indices, int left, int right, int k);
+static double quickSelect(std::vector<std::pair<double,int>>& v, int left, int right, int k);
 
 /**
  * @param k an integer
- * @return a vector of the k-th smallest elements of the array
+ * @return the indices of the k-th smallest elements of the array
  */
 std::vector<int> kSmallestElements(const std::vector<double>& v, int k);
-
-/**
- * find the key of the maximum value of a map in type of <std::string,int>
- * @param map the map which contains the keys and their values
- * @return the key with the maximum value
- */
-std::string maxKey(const std::map<std::string, int>& map);
 
 #endif

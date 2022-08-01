@@ -10,7 +10,7 @@ public:
      * @param v2 another vector
      * @return the euclidean distance between the two
      */
-    double distance(const std::vector<double>& v1, const std::vector<double>& v2 ) const override;
+    double distance(const std::vector<double>& v1, const std::vector<double>& v2) const override;
 };
 
 #endif

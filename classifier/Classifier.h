@@ -1,19 +1,10 @@
 #ifndef CLASSIFIER_H
 #define CLASSIFIER_H
 
-#include "Algorithms.h"
 #include "Classified.h"
 #include "distance/Distance.h"
-#include "distance/EuclideanDistance.h"
-#include "distance/ChebyshevDistance.h"
-#include "distance/ManhattanDistance.h"
 #include <string>
 #include <memory>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-
-
 
 class Classifier {
 private:
@@ -40,7 +31,7 @@ public:
      * Initialize the classified data the KNN algorithm will utilise.
      * @param dataPath the path to the classified data
      */
-    void init(std::string dataPath);
+    void init(const std::string& dataPath);
 
     /**
      * Use the KNN algorithm to classify the data stored in the dataPath,
@@ -48,7 +39,7 @@ public:
      * @param dataPath the path to the unclassified data
      * @param outputPath the desired output path
      */
-    void write(std::string dataPath, std::string outputPath);
+    void write(const std::string& dataPath, const std::string& outputPath);
 };
 
 #endif

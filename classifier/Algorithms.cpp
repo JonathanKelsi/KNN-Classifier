@@ -4,7 +4,6 @@
 
 // Vector utility functions
 
-
 const std::vector<double> operator-(const std::vector<double>& v) {
     std::vector<double> res = v;
     auto size = res.size();
@@ -38,7 +37,7 @@ const std::vector<double> operator-(const std::vector<double>& u, const std::vec
 
 const std::vector<double> operator*(double t, const std::vector<double>& v) {
     std::vector<double> res = v;
-    int size = res.size();
+    auto size = res.size();
 
     for (int i = 0; i < size; ++i) {
         res[i] *= t;
@@ -57,7 +56,7 @@ const std::vector<double> operator/(const std::vector<double>& v, double t) {
 
 double len(const std::vector<double>& v) {
     double lenSqrd = 0;
-    double size = v.size();
+    auto size = v.size();
 
     for (int i = 0; i < size; ++i) {
         lenSqrd += v[i] * v[i];
@@ -66,9 +65,22 @@ double len(const std::vector<double>& v) {
     return sqrt(lenSqrd);
 }
 
-
 // Other utility functions
 
+std::string maxKey(const std::map<std::string, int>& map) {
+    auto handleIterator = map.begin();
+    std::string mostCommonString;
+    int maxTimes = 0;
+
+    while (handleIterator != map.end()) {
+        if (handleIterator->second > maxTimes) {
+            mostCommonString = handleIterator->first;
+            maxTimes = handleIterator->second;
+        }
+        handleIterator = std::next(handleIterator);
+    }
+    return mostCommonString;
+}
 
 bool isFloat(const std::string& str) {
     char* ptr;
@@ -95,10 +107,7 @@ void swap(std::pair<double,int>& p1, std::pair<double,int>& p2) {
     p2 = temp;
 }
 
-
 // Algorithms
-
-
 static int partition(std::vector<std::pair<double,int>>& v, int left, int right, int pivot) {
     double pivotVal = v[pivot].first;
 
@@ -147,7 +156,7 @@ std::vector<int> kSmallestElements(const std::vector<double>& v, int k) {
         valuesAndIndices.emplace_back(v[i], i);
     }
 
-    // Use the quick select algorithm to find the k-th smallest element, and partition the vector accordingly.
+    // Use the quickSelect algorithm to find the k-th smallest element, and partition the vector accordingly.
     quickSelect(valuesAndIndices, 0, size - 1, k);
 
     // Find the indices of the k-th smallest elements
@@ -157,20 +166,5 @@ std::vector<int> kSmallestElements(const std::vector<double>& v, int k) {
         indices.push_back(valuesAndIndices[i].second);
     }
 
-    return  indices;
-}
-
-std::string maxKey(const std::map<std::string, int>& map) {
-    auto handleIterator = map.begin();
-    std::string mostCommonString;
-    int maxTimes = 0;
-
-    while (handleIterator != map.end()) {
-        if (handleIterator->second > maxTimes) {
-            mostCommonString = handleIterator->first;
-            maxTimes = handleIterator->second;
-        }
-        handleIterator = std::next(handleIterator);
-    }
-    return mostCommonString;
+    return indices;
 }
