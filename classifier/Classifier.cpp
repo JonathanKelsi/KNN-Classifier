@@ -87,67 +87,45 @@ void Classifier::write(std::string dataPath, std::string outputPath) {
         throw std::runtime_error("Classifier uninitialized");
     }
 
-    //create a vector with the 3 type of distances: euclidean, chebyshev and manhattan for the classifications.
-    std::unique_ptr<Distance> eD (reinterpret_cast<Distance *>(new EuclideanDistance()));
-    std::unique_ptr<Distance> cD (reinterpret_cast<Distance *>(new ChebyshevDistance()));
-    std::unique_ptr<Distance> mD (reinterpret_cast<Distance *>(new ManhattanDistance()));
-    std::vector<std::unique_ptr<Distance>> distancesVector;
-    distancesVector.push_back(std::move(eD));
-    distancesVector.push_back(std::move(cD));
-    distancesVector.push_back(std::move(mD));
 
-    //create a vector of vectors which will contain the classification, each for one distance.
-    //the first: EuclideanDistance, the second: ChebyshevDistance, the third: ManhattanDistance.
-    //when the objects will be classified, they will be pushed into the corresponding vector.
-    std::vector<std::vector<Classified>> outputs;
-    auto numOfDistances = distancesVector.size();
-    for (int i = 0; i < numOfDistances; ++i) {
-        std::vector<Classified> vec;
-        outputs.push_back(vec);
-    }
 
-    //we'll open the file of the input.
+
+    // Create unclassified objects from the unclassified data
     std::string line;
     std::ifstream inFile(dataPath);
+    std::vector<std::unique_ptr<Classified>> unclassifiedData;
 
-    //we'll create the objects from the file object by object, each line contains one object.
     while (std::getline(inFile, line)) {
-        //for each line, we'll split it by ',' so we'll get the coordinates of each object.
         std::istringstream inputStringStream(line);
         std::string col;
-        //vData will store the coordinates.
         std::vector<double> vData;
-        //for each word in the line, we'll convert it to the double that contains in it.
+
         while (std::getline(inputStringStream, col, ',')) {
             if (isFloat(col)) {
                 vData.push_back((double)std::atof(col.c_str()));
             }
         }
-        //finally, we'll create form these coordinates a Classified object of this unclassified, and then classify it.
-        //we'll do it as for each distance once.
-        for (int i = 0; i < numOfDistances; ++i) {
-            Classified classified("", vData);
-            classify(classified, *distancesVector[i].get());
-            //after classifying the object, we'll push it into the vector which is relevant to its distance type.
-            outputs[i].push_back(classified);
-        }
+
+        std::unique_ptr<Classified> uniquePtr (reinterpret_cast<Classified *>(new Classified("", vData)));
+        unclassifiedData.push_back(std::move(uniquePtr));
     }
 
-    //we'll close the input file.
     inFile.close();
-    //we'll create vector with the files names to write into.
-    std::vector<std::string> files;
-    files.push_back("euclidean_output.csv");
-    files.push_back("chebyshev_output.csv");
-    files.push_back("manhattan_output.csv");
 
-    //know, for each distance, we'll print the classifications by the relevant distance.
+    // Create a vector of the metrics used
+    std::vector<Distance*> metrics = {new EuclideanDistance(), new ChebyshevDistance(), new ManhattanDistance()};
+
+    //Create vector with the output path names, corresponding to the metrics
+    std::vector<std::string> files = {"euclidean_output.csv", "chebyshev_output.csv", "manhattan_output.csv"};
+    auto numOfDistances = metrics.size();
+    // Now, for each distance, we'll print the classifications by the relevant distance.
     for (int i = 0; i < numOfDistances; ++i) {
         std::fstream ostream;
         ostream.open(outputPath + "/" + files[i]);
-        auto numOfClassifieds = outputs[i].size();
+        auto numOfClassifieds = unclassifiedData.size();
         for (int j = 0; j < numOfDistances; ++j) {
-            ostream << outputs[i][j].handle() << std::endl;
+            classify(*unclassifiedData[j], *metrics[i]);
+            ostream << unclassifiedData[j]->handle() << std::endl;
         }
         ostream.close();
     }
