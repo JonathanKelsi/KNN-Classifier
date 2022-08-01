@@ -35,13 +35,22 @@ Clone the repository:
 git clone 'https://github.com/JonathanKelsi/KNN-Classifier'
 ```
 
-### Executing program
+### Executing the program
+
+First, create the input and output directories:
+```bash
+mkdir -p input && mkdir -p output
+```
+Inside the *input* directory, place the 
+*Classified.csv*, *Unclassified.csv* files.
+</br>
 
 To run the program, the standard CMake workflow can be used:
 ```bash
 mkdir -p build && cd build
 cmake ..
-make -j && make KNN-Classifier <k>
+make 
+./KNN-Classifier <k>
 ```
 
 ## Authors
