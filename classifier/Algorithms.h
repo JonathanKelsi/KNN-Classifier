@@ -78,12 +78,6 @@ std::string maxKey(const std::map<std::string, int>& map);
 std::vector<std::string> split(const std::string& str, char delim);
 
 /**
- * @param str a string
- * @return whether the input string represents a floating point number
- */
-bool isFloat(const std::string& str);
-
-/**
  * @param a a lower bound
  * @param b an upper bound
  * @return a random real number in [a,b]

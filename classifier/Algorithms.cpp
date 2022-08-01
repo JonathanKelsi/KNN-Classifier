@@ -102,13 +102,6 @@ std::vector<std::string> split(const std::string& str, char delim) {
     return subStrings;
 }
 
-
-bool isFloat(const std::string& str) {
-    char* end = nullptr;
-    double val = strtod(str.c_str(), &end);
-    return end != str.c_str() && *end == '\0' && val != HUGE_VAL;
-}
-
 int random(int a, int b) {
     // Obtain a random number from hardware
     std::random_device rand;

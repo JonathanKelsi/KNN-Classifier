@@ -14,6 +14,11 @@ public:
      * @return the distance between the two
      */
     virtual double distance(const std::vector<double>& v1, const std::vector<double>& v2) const = 0;
+
+    /**
+     * Destructor.
+     */
+     virtual ~Distance() = default;
 };
 
 #endif

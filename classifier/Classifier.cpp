@@ -113,6 +113,7 @@ void Classifier::write(const std::string& dataPath, const std::string& outputPat
         }
 
         ostream.close();
+        delete metrics[i];
     }
 
     metrics.clear();
