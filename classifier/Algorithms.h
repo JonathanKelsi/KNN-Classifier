@@ -6,6 +6,7 @@
 
 // Vector utility functions
 
+
 /**
  * the '-' operator.
  * @param v a vector
@@ -17,7 +18,7 @@ const std::vector<double> operator-(const std::vector<double>& v);
  * the '+' operator.
  * @param v a vector
  * @param u another vector
- * @return the sum of the two vectors
+ * @return the sum of the two vectors (u+v)
  */
 const std::vector<double> operator+(const std::vector<double>& v, const std::vector<double>& u);
 
@@ -25,7 +26,7 @@ const std::vector<double> operator+(const std::vector<double>& v, const std::vec
  * the '-' operator.
  * @param v a vector
  * @param u another vector
- * @return u - v
+ * @return the difference of the two vectors (u - v)
  */
 const std::vector<double> operator-(const std::vector<double>& u, const std::vector<double>& v);
 
@@ -33,7 +34,7 @@ const std::vector<double> operator-(const std::vector<double>& u, const std::vec
  * the '*' operator.
  * @param t a scalar
  * @param v a vector
- * @return the vector, multiplied by the scalar t
+ * @return the vector, multiplied by the scalar t (t*v)
  */
 const std::vector<double> operator*(double t, const std::vector<double>& v);
 
@@ -41,7 +42,7 @@ const std::vector<double> operator*(double t, const std::vector<double>& v);
  * the '*' operator.
  * @param v a vector
  * @param t a scalar
- * @return the product of the scalar t and v
+ * @return the product of the scalar t and v (v*t)
  */
 const std::vector<double> operator*(const std::vector<double>& v, double t);
 
@@ -49,7 +50,7 @@ const std::vector<double> operator*(const std::vector<double>& v, double t);
  * the '/' operator.
  * @param t a scalar
  * @param v a vector
- * @return the vector, multiplied by the inverse of the scalar t
+ * @return the vector, multiplied by the inverse of the scalar t (t^-1*v)
  */
 const std::vector<double> operator/(const std::vector<double>& v, double t);
 
@@ -58,7 +59,9 @@ const std::vector<double> operator/(const std::vector<double>& v, double t);
  */
 double len(const std::vector<double>& v);
 
-// Algorithms and other utility functions
+
+// Other utility functions
+
 
 /**
  * @param str a string
@@ -74,24 +77,19 @@ bool isFloat(const std::string& str);
 int random(int a, int b);
 
 /**
- * swap two double variables.
- * @param x a reference to a variable
- * @param y a reference to another variable
+ * swap two pairs of double and integer.
+ * @param p1 a reference to a pair
+ * @param p2 a reference to another pair
  */
-void swap(double& x, double& y);
+void swap(std::pair<double,int>& p1, std::pair<double,int>& p2);
+
+
+// Algorithms
+
 
 /**
- * swap two integer variables.
- * @param x a reference to a variable
- * @param y a reference to another variable
- */
-void swap(int& x, int& y);
-
-/**
- * group v[left...right] into two parts: those smaller than v[pivot] and those bigger than v[pivot], and update
- * the indices vector that points the original indices to the new indices.
- * @param v a vector of real numbers
- * @param indices the vector of original indices
+ * group v[left...right] into two parts: those smaller than v[pivot] and those bigger than v[pivot].
+ * @param v a vector of real numbers, paired with their original indices
  * @param left a lower bound on the indices
  * @param right an upper bound on the indices
  * @param pivot a pivot
@@ -100,8 +98,7 @@ void swap(int& x, int& y);
 static int partition(std::vector<double>& v, std::vector<int>& indices, int left, int right, int pivot);
 
 /**
- * @param v a vector of real numbers
- * @param indices the vector of original indices
+ * @param v a vector of real numbers, paired with their original indices
  * @param left a lower bound on the indices
  * @param right an upper bound on the indices
  * @param k an integer s.t left <= k <= right
@@ -110,9 +107,9 @@ static int partition(std::vector<double>& v, std::vector<int>& indices, int left
 static double quickSelect(std::vector<double>& v, std::vector<int>& indices, int left, int right, int k);
 
 /**
- * @param k an integer s.t left <= k <= right
- * @return the index of the k-th smallest element of v
+ * @param k an integer
+ * @return a vector of the k-th smallest elements of the array
  */
-int quickSelect(std::vector<double> v, int k);
+std::vector<int> kSmallestElements(const std::vector<double>& v, int k);
 
 #endif

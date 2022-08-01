@@ -2,6 +2,9 @@
 #include <random>
 #include <stdexcept>
 
+// Vector utility functions
+
+
 const std::vector<double> operator-(const std::vector<double>& v) {
     std::vector<double> res = v;
     auto size = res.size();
@@ -63,6 +66,10 @@ double len(const std::vector<double>& v) {
     return sqrt(lenSqrd);
 }
 
+
+// Other utility functions
+
+
 bool isFloat(const std::string& str) {
     char* ptr;
     strtof(str.c_str(), &ptr);
@@ -82,74 +89,74 @@ int random(int a, int b) {
     return distr(gen);
 }
 
-void swap(double& x, double& y) {
-    double temp = x;
-    x = y;
-    y = temp;
+void swap(std::pair<double,int>& p1, std::pair<double,int>& p2) {
+    std::pair<double,int> temp = p1;
+    p1 = p2;
+    p2 = temp;
 }
 
-void swap(int& x, int& y) {
-    int temp = x;
-    x = y;
-    y = temp;
-}
 
-static int partition(std::vector<double>& v, std::vector<int>& indices, int left, int right, int pivot) {
-    double pivotVal = v[pivot];
+// Algorithms
+
+
+static int partition(std::vector<std::pair<double,int>>& v, int left, int right, int pivot) {
+    double pivotVal = v[pivot].first;
 
     // Move the pivot to the end
     swap(v[pivot], v[right]);
-    swap(indices[pivot], indices[right]);
 
     int index = left;
     for (int i = left; i < right; ++i) {
-        if (v[i] < pivotVal) {
+        if (v[i].first < pivotVal) {
             swap(v[index], v[i]);
-            swap(indices[index], indices[i]);
             index++;
         }
     }
 
     // Move pivot to its final place
     swap(v[right], v[index]);
-    swap(indices[right], indices[index]);
 
     return index;
 }
 
-static double quickSelect(std::vector<double>& v, std::vector<int>& indices, int left, int right, int k) {
+static double quickSelect(std::vector<std::pair<double,int>>& v, int left, int right, int k) {
     // If the vector contains only one element
     if (left == right) {
-        return v[left];
+        return v[left].first;
     }
 
     // Select an index between left and right
     int pivot = random(left, right);
-    pivot = partition(v, indices, left, right, pivot);
+    pivot = partition(v, left, right, pivot);
 
     // If we've found the desired element
     if (k == pivot) {
-        return v[k];
+        return v[k].first;
     } else if (k < pivot) {
-        return quickSelect(v, indices, left, pivot -1, k);
+        return quickSelect(v, left, pivot -1, k);
     }
 
-    // Else
-    return quickSelect(v, indices, pivot + 1, right, k);
+    return quickSelect(v, pivot + 1, right, k);
 }
 
-int quickSelect(std::vector<double> v, int k) {
+std::vector<int> kSmallestElements(const std::vector<double>& v, int k) {
     auto size = v.size();
-    std::vector<int> indices;
+    std::vector<std::pair<double,int>> valuesAndIndices;
 
-    // Create an indices vector
     for (int i = 0; i < size; ++i) {
-        indices.push_back(i);
+        valuesAndIndices.emplace_back(v[i], i);
     }
 
     // Use the quick select algorithm to find the k-th smallest element, and partition the vector accordingly.
-    // Also, keep track of original elements' indices, so we'll be able to return the original index.
-    quickSelect(v, indices, 0, size - 1, k);
+    quickSelect(valuesAndIndices, 0, size - 1, k);
 
-    return  indices[k];
+    // Find the indices of the k-th smallest elements
+    std::vector<int> indices;
+
+    for (int i = 0; i < k; ++i) {
+        indices.push_back(valuesAndIndices[i].second);
+    }
+
+    return  indices;
 }
+
