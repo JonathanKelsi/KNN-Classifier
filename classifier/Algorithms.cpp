@@ -159,11 +159,22 @@ static double quickSelect(std::vector<std::pair<double,int>>& v, int left, int r
         return quickSelect(v, left, pivot -1, k);
     }
 
+    // Edge case
+    if (pivot + 1 >= right) {
+        return v[right].first;
+    }
+
+
     return quickSelect(v, pivot + 1, right, k);
 }
 
 std::vector<int> kSmallestElements(const std::vector<double>& v, int k) {
     auto size = v.size();
+
+    if (k < 0 || k > size) {
+        throw std::runtime_error("k out of bounds");
+    }
+
     std::vector<std::pair<double,int>> valuesAndIndices;
 
     for (int i = 0; i < size; ++i) {
