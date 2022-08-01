@@ -82,10 +82,31 @@ std::string maxKey(const std::map<std::string, int>& map) {
     return mostCommonString;
 }
 
+std::vector<std::string> split(const std::string& str, char delim) {
+    std::vector<std::string> subStrings;
+    std::string currentSubString;
+    auto size = str.length();
+
+    for (char c : str) {
+        if (c == delim) {
+            subStrings.push_back(currentSubString);
+            currentSubString.clear();
+        } else {
+            currentSubString.push_back(c);
+        }
+    }
+
+    // Add the last substring
+    subStrings.push_back(currentSubString);
+
+    return subStrings;
+}
+
+
 bool isFloat(const std::string& str) {
-    char* ptr;
-    strtof(str.c_str(), &ptr);
-    return (*ptr) == '\0';
+    char* end = nullptr;
+    double val = strtod(str.c_str(), &end);
+    return end != str.c_str() && *end == '\0' && val != HUGE_VAL;
 }
 
 int random(int a, int b) {

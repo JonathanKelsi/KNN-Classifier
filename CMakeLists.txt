@@ -10,6 +10,7 @@ set(PROJECT_HEADERS
     "classifier/distance/ManhattanDistance.h"
     "classifier/Algorithms.h"
     "classifier/distance/ChebyshevDistance.h"
+    "classifier/Classifier.h"
     )
 
 set(PROJECT_SOURCES
@@ -18,8 +19,9 @@ set(PROJECT_SOURCES
     "classifier/distance/ManhattanDistance.cpp"
     "classifier/Algorithms.cpp"
     "classifier/distance/ChebyshevDistance.cpp"
+    "classifier/Classifier.cpp"
     "main.cpp"
-        classifier/Classifier.h classifier/Classifier.cpp)
+    )
 
 add_executable(KNN-Classifier ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 

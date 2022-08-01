@@ -9,7 +9,6 @@
 
 Classifier::Classifier(int k) : m_isInit(false), m_k(k) {}
 
-
 void Classifier::init(const std::string& dataPath) {
     // Read from given csv files and create classified objects
     std::string line;
@@ -18,18 +17,14 @@ void Classifier::init(const std::string& dataPath) {
     // Iterate through the csv file lines
     while (std::getline(inFile, line)) {
         // Read the columns and gather the classified object's data
-        std::istringstream stringStream(line);
-        std::string column;
+        std::vector<std::string> columns = split(line, ',');
+        auto size = columns.size();
 
-        std::string handle;
+        std::string handle = columns[size - 1];
         std::vector<double> vData;
 
-        while(std::getline(stringStream, column, ',')) {
-            if (isFloat(column)) {
-                vData.push_back(std::stod(column));
-            } else {
-                handle = column;
-            }
+        for (int i = 0; i < size - 1; ++i) {
+            vData.push_back(std::stod(columns[i]));
         }
 
         std::unique_ptr<Classified> uniquePtr(new Classified(handle, vData));
@@ -80,17 +75,17 @@ void Classifier::write(const std::string& dataPath, const std::string& outputPat
     // Create unclassified objects from the unclassified data
     std::string line;
     std::ifstream inFile(dataPath);
+
     std::vector<std::unique_ptr<Classified>> unclassifiedData;
 
     while (std::getline(inFile, line)) {
-        std::istringstream inputStringStream(line);
-        std::string col;
+        std::vector<std::string> columns = split(line, ',');
+        auto size = columns.size();
+
         std::vector<double> vData;
 
-        while (std::getline(inputStringStream, col, ',')) {
-            if (isFloat(col)) {
-                vData.push_back(std::stod(col));
-            }
+        for (int i = 0; i < size; ++i) {
+            vData.push_back(std::stod(columns[i]));
         }
 
         std::unique_ptr<Classified> uniquePtr(new Classified("", vData));

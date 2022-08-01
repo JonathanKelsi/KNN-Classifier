@@ -69,6 +69,15 @@ double len(const std::vector<double>& v);
 std::string maxKey(const std::map<std::string, int>& map);
 
 /**
+ * split the line into the substrings that are divided by the delimiter, ignoring
+ * end of line characters.
+ * @param line a line
+ * @param delim a delimiter to split by
+ * @return the resulting substrings
+ */
+std::vector<std::string> split(const std::string& str, char delim);
+
+/**
  * @param str a string
  * @return whether the input string represents a floating point number
  */
