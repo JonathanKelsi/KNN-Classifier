@@ -12,12 +12,6 @@ int main(int argc, char** argv) {
 //    classifier.init(""); //TODO: add correct path
 //    classifier.write("", ""); //TODO: add correct paths
 
-    std::map<std::string, int> map;
-//    std::cout << (map.find("Hi") == map.end()) << std::endl;
-    map["Hi"] = 5;
-    map["hi"]++;
-    std
-    std::cout << map["Hi"];
     return 0;
 }
 
