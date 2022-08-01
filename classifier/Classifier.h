@@ -4,11 +4,16 @@
 #include "Algorithms.h"
 #include "Classified.h"
 #include "distance/Distance.h"
+#include "distance/EuclideanDistance.h"
+#include "distance/ChebyshevDistance.h"
+#include "distance/ManhattanDistance.h"
 #include <string>
 #include <memory>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
+
 
 class Classifier {
 private:

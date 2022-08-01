@@ -77,5 +77,51 @@ void Classifier::init(std::string dataPath) {
 }
 
 void Classifier::write(std::string dataPath, std::string outputPath) {
+    std::string line;
+    std::ifstream inFile(dataPath);
+
+
+    std::unique_ptr<Distance> eD (reinterpret_cast<Distance *>(new EuclideanDistance()));
+    std::unique_ptr<Distance> cD (reinterpret_cast<Distance *>(new ChebyshevDistance()));
+    std::unique_ptr<Distance> mD (reinterpret_cast<Distance *>(new ManhattanDistance()));
+    std::vector<std::unique_ptr<Distance>> distancesVector;
+    distancesVector.push_back(std::move(eD));
+    distancesVector.push_back(std::move(cD));
+    distancesVector.push_back(std::move(mD));
+    std::vector<std::vector<Classified>> outputs;
+    auto numOfDistances = distancesVector.size();
+    for (int i = 0; i < numOfDistances; ++i) {
+        std::vector<Classified> vec;
+        outputs.push_back(vec);
+    }
+
+    while (std::getline(inFile, line)) {
+        std::istringstream inputStringStream(line);
+        std::string col;
+        std::vector<double> vData;
+        while (std::getline(inputStringStream, col, ',')) {
+            if (isFloat(col)) {
+                vData.push_back((double)std::atof(col.c_str()));
+            }
+        }
+        for (int i = 0; i < numOfDistances; ++i) {
+            Classified classified("", vData);
+            classify(classified, *distancesVector[i].get());
+            outputs[i].push_back(classified);
+        }
+    }
+    std::vector<std::string> files;
+    files.push_back("euclidean_output.csv");
+    files.push_back("chebyshev_output.csv");
+    files.push_back("manhattan_output.csv");
+    for (int i = 0; i < numOfDistances; ++i) {
+        std::fstream ostream;
+        ostream.open(outputPath + "/" + files[i]);
+        auto numOfClassifieds = outputs[i].size();
+        for (int j = 0; j < numOfDistances; ++j) {
+            ostream << outputs[i][j].data() << "," << outputs[i][j].handle() << std::endl;
+        }
+        ostream.close();
+    }
 }
 
