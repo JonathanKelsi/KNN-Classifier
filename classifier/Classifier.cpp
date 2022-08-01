@@ -2,44 +2,6 @@
 #include <memory>
 #include <map>
 
-void Classifier::classify(Classified& unclassified, const Distance& metric) const {
-    if (!m_isInit) {
-        return;
-    }
-
-    // Measure the distances from the unclassified vector to the gathered data
-    std::vector<double> distances;
-    auto dataSize = m_classifiedData.size();
-
-    for (int i = 0; i < dataSize; ++i) {
-        distances.push_back(metric.distance(unclassified.data(), m_classifiedData[i]->data()));
-    }
-
-    // Find the K nearest neighbours
-    std::map<std::string, int> map;
-    std::vector<int> indices = kSmallestElements(distances, m_k);
-
-    for (int i = 0; i < m_k; ++i) {
-        std::string handle = m_classifiedData[indices[i]]->handle();
-
-        if (map.find(handle) == map.end()) {
-           map[handle] = 1;
-        } else {
-            map[handle]++;
-        }
-    }
-    std::map<std::string, int>::iterator handleIterator = map.begin();
-    std::string maxHandle = "";
-    int maxTimes = 0;
-    while (handleIterator != map.end()) {
-        if (handleIterator->second > maxTimes) {
-            maxHandle = handleIterator->first;
-            maxTimes = handleIterator->second;
-        }
-    }
-    unclassified.handle(maxHandle);
-}
-
 Classifier::Classifier(int k) {
     m_isInit = false;
     m_k = k;
@@ -76,7 +38,55 @@ void Classifier::init(std::string dataPath) {
     m_isInit = true;
 }
 
+void Classifier::classify(Classified& unclassified, const Distance& metric) const {
+    if (!m_isInit) {
+        throw std::runtime_error("Classifier uninitialized");
+    }
+
+    // Measure the distances from the unclassified vector to the gathered data
+    std::vector<double> distances;
+    auto dataSize = m_classifiedData.size();
+
+    for (int i = 0; i < dataSize; ++i) {
+        distances.push_back(metric.distance(unclassified.data(), m_classifiedData[i]->data()));
+    }
+
+    // Find the K nearest neighbours, and the most common handle among them
+    std::map<std::string, int> map;
+    std::vector<int> indices = kSmallestElements(distances, m_k);
+
+    for (int i = 0; i < m_k; ++i) {
+        std::string handle = m_classifiedData[indices[i]]->handle();
+
+        if (map.find(handle) == map.end()) {
+            map[handle] = 1;
+        } else {
+            map[handle]++;
+        }
+    }
+
+
+    //TODO: Create method in Algorithms.h
+    auto handleIterator = map.begin();
+    std::string mostCommonHandle;
+    int maxTimes = 0;
+
+    while (handleIterator != map.end()) {
+        if (handleIterator->second > maxTimes) {
+            mostCommonHandle = handleIterator->first;
+            maxTimes = handleIterator->second;
+        }
+    }
+
+    // Classify the object
+    unclassified.handle(mostCommonHandle);
+}
+
 void Classifier::write(std::string dataPath, std::string outputPath) {
+    if (!m_isInit) {
+        throw std::runtime_error("Classifier uninitialized");
+    }
+
     //create a vector with the 3 type of distances: euclidean, chebyshev and manhattan for the classifications.
     std::unique_ptr<Distance> eD (reinterpret_cast<Distance *>(new EuclideanDistance()));
     std::unique_ptr<Distance> cD (reinterpret_cast<Distance *>(new ChebyshevDistance()));
@@ -122,6 +132,7 @@ void Classifier::write(std::string dataPath, std::string outputPath) {
             outputs[i].push_back(classified);
         }
     }
+
     //we'll close the input file.
     inFile.close();
     //we'll create vector with the files names to write into.

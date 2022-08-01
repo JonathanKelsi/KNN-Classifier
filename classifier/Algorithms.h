@@ -6,7 +6,6 @@
 
 // Vector utility functions
 
-
 /**
  * the '-' operator.
  * @param v a vector
@@ -18,7 +17,7 @@ const std::vector<double> operator-(const std::vector<double>& v);
  * the '+' operator.
  * @param v a vector
  * @param u another vector
- * @return the sum of the two vectors (u+v)
+ * @return the sum of the two vectors (u + v)
  */
 const std::vector<double> operator+(const std::vector<double>& v, const std::vector<double>& u);
 
@@ -26,7 +25,7 @@ const std::vector<double> operator+(const std::vector<double>& v, const std::vec
  * the '-' operator.
  * @param v a vector
  * @param u another vector
- * @return the difference of the two vectors (u - v)
+ * @return the result of the vector subtraction (u - v)
  */
 const std::vector<double> operator-(const std::vector<double>& u, const std::vector<double>& v);
 
@@ -34,7 +33,7 @@ const std::vector<double> operator-(const std::vector<double>& u, const std::vec
  * the '*' operator.
  * @param t a scalar
  * @param v a vector
- * @return the vector, multiplied by the scalar t (t*v)
+ * @return the product of the scalar t and v (t*v)
  */
 const std::vector<double> operator*(double t, const std::vector<double>& v);
 
@@ -42,7 +41,7 @@ const std::vector<double> operator*(double t, const std::vector<double>& v);
  * the '*' operator.
  * @param v a vector
  * @param t a scalar
- * @return the product of the scalar t and v (v*t)
+ * @return the product of the scalar t and v (v * t)
  */
 const std::vector<double> operator*(const std::vector<double>& v, double t);
 
@@ -50,7 +49,7 @@ const std::vector<double> operator*(const std::vector<double>& v, double t);
  * the '/' operator.
  * @param t a scalar
  * @param v a vector
- * @return the vector, multiplied by the inverse of the scalar t (t^-1*v)
+ * @return the vector, multiplied by the inverse of the scalar t (t^-1 * v)
  */
 const std::vector<double> operator/(const std::vector<double>& v, double t);
 
@@ -59,9 +58,7 @@ const std::vector<double> operator/(const std::vector<double>& v, double t);
  */
 double len(const std::vector<double>& v);
 
-
 // Other utility functions
-
 
 /**
  * @param str a string
@@ -83,9 +80,7 @@ int random(int a, int b);
  */
 void swap(std::pair<double,int>& p1, std::pair<double,int>& p2);
 
-
 // Algorithms
-
 
 /**
  * group v[left...right] into two parts: those smaller than v[pivot] and those bigger than v[pivot].
