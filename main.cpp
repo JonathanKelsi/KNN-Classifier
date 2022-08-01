@@ -6,11 +6,11 @@
 
 int main(int argc, char** argv) {
     // Create a classifier
-    Classifier classifier(std::stoi(argv[0]));
+    Classifier classifier(3);
 
     // Initialize the classifier with the given data, ad classify the unclassified data
-    classifier.init(""); //TODO: add correct path
-    classifier.write("", ""); //TODO: add correct paths
+    classifier.init("../input/classified.csv"); //TODO: add correct path
+    classifier.write("../input/Unclassified.csv", "../output"); //TODO: add correct paths
     return 0;
 }
 

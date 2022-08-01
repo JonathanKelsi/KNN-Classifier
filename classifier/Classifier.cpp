@@ -104,7 +104,7 @@ void Classifier::write(std::string dataPath, std::string outputPath) {
     // Now, for each distance, we'll print the classifications by the relevant distance.
     for (int i = 0; i < numOfDistances; ++i) {
         std::fstream ostream;
-        ostream.open(outputPath + "/" + files[i]);
+        ostream.open((outputPath + "/" + files[i]));
         auto numOfClassifieds = unclassifiedData.size();
         for (int j = 0; j < numOfDistances; ++j) {
             classify(*unclassifiedData[j], *metrics[i]);

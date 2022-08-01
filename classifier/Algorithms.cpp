@@ -170,6 +170,7 @@ std::string maxKey(const std::map<std::string, int>& map) {
             mostCommonString = handleIterator->first;
             maxTimes = handleIterator->second;
         }
+        handleIterator = std::next(handleIterator);
     }
     return mostCommonString;
 }
